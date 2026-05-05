@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const EMPTY_FORM = { name: '', studentId: '', major: '', gpa: '' };
 
-function AddStudentForm({ onAddStudent }) {
+function AddStudentForm({ onAddStudent, editingStudent, onCancelEdit }) {
   const [formData, setFormData] = useState(EMPTY_FORM);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (editingStudent) {
+      setFormData(editingStudent);
+    } else {
+      setFormData(EMPTY_FORM);
+    }
+  }, [editingStudent]);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +32,7 @@ function AddStudentForm({ onAddStudent }) {
     }
 
     onAddStudent({
-      id: Date.now(),
+      id: editingStudent ? editingStudent.id : Date.now(),
       name: formData.name.trim(),
       studentId: formData.studentId.trim(),
       major: formData.major.trim() || 'Undeclared',
@@ -37,7 +45,7 @@ function AddStudentForm({ onAddStudent }) {
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>Add New Student</h3>
+      <h3>{editingStudent ? '📝 Edit Student' : '✨ Add New Student'}</h3>
       {error && <p className="form-error">{error}</p>}
       <div className="form-row">
         <input
@@ -69,8 +77,13 @@ function AddStudentForm({ onAddStudent }) {
           max="4"
         />
         <button type="submit" className="btn-primary">
-          + Add Student
+          {editingStudent ? 'Update' : ' + Add'}
         </button>
+        {editingStudent && (
+          <button type="button" className="btn-secondary" onClick={onCancelEdit}>
+            Cancel
+          </button>
+        )}
       </div>
     </form>
   );

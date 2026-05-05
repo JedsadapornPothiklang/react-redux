@@ -139,7 +139,21 @@ body {
 .btn-primary:hover {
   background-color: var(--primary-hover);
 }
+.btn-secondary {
+  background-color: var(--text-muted);
+  color: white;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
 
+.btn-secondary:hover {
+  background-color:var(--text-muted) ;
+}
 /* Student Table */
 .student-table {
   width: 100%;
@@ -191,4 +205,23 @@ body {
   border-radius: 12px;
   border: 2px dashed var(--border-color);
   color: var(--text-muted);
+}
+.btn-edit{
+  background-color: orange;
+  border: none;
+  border-radius: 6px;
+  width: auto;
+  margin-right: 5px;
+  padding: 5px 10px 5px 10px;
+
+}
+.btn-delete{
+  background-color: var(--error-text);
+  border: none;
+  border-radius: 6px;
+  width: auto;
+  padding: 5px 10px 5px 10px;
+}
+.actions-cell{
+  text-align: center;
 }
