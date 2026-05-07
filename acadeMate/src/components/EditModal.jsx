@@ -12,7 +12,7 @@ return (
 <input name="major" value={form.major} onChange={onChange} placeholder="Major" />
 <input name="gpa" value={form.gpa} onChange={onChange} type="number" step="0.01" placeholder="GPA (0.00-4.00)" />
 <div className="modal-actions">
-<button className="btn-save" onClick={() => onSave(form)}>Save</button>
+<button className="btn-save" onClick={() => onSave({ ...form, gpa: parseFloat(form.gpa) || 0 })}>Save</button>
 <button className="btn-cancel" onClick={onCancel}>Cancel</button>
 </div>
 </div>

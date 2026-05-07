@@ -7,7 +7,7 @@ addGrade: (state, action) => {
 state.list.push({
 id: Date.now(),
 ...action.payload,
-// payload: { studentId,
+// payload: { studentid,
 // courseId, grade, semester }
 });
 },

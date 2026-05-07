@@ -1,24 +1,25 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addStudent } from "../features/students/studentsSlice";
+import { addStudentAsync } from '../features/students/studentsThunks'
 const EMPTY_FORM = { name: "", studentId: "", major: "", gpa: "" };
 function AddStudentForm() {
 const dispatch = useDispatch();
 const [form, setForm] = useState(EMPTY_FORM);
-const [error, setError] = useState("");
 // Single handler for ALL inputs via computed property name
 function handleChange(e) {
 // setForm({ ...form, [e.target.name]: e.target.value });
 setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 }
-function handleSubmit(e) {
+const onSubmit = async e => {
 e.preventDefault();
-dispatch(addStudent({ id: Date.now(), ...form, gpa: parseFloat(form.gpa) || 0 }));
-setForm(EMPTY_FORM); // Reset form after successful submit
-setError("");
-}
+await dispatch(addStudentAsync({
+...form,
+gpa: parseFloat(form.gpa)
+}));
+setForm(EMPTY_FORM);
+};
 return (
-<form className="add-form" onSubmit={handleSubmit}>
+<form className="add-form" onSubmit={onSubmit}>
 <h3>Add New Student</h3>
 <div className="form-row">
 <input name="name" value={form.name} onChange={handleChange} placeholder="Full Name" required />
